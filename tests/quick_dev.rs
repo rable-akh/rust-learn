@@ -14,10 +14,19 @@ async fn quick_dev() -> Result<(), Box<dyn Error>> {
 
     let login = hc.do_post("api/login", json!({
         "username": "demo",
-        "pass": "pass"
+        "pwd": "pass"
     }));
 
     login.await?.print().await;
+
+    let req_create_ticket = hc.do_post(
+        "/api/tickets", 
+        json!({
+            "title": "Ticket Add"
+        }),
+    );
+
+    req_create_ticket.await?.print().await?;
 
     Ok(())
 }
